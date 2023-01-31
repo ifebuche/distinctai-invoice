@@ -6,7 +6,7 @@
 - To deploy and run this app on AWS, [setup](https://www.serverless.com/framework/docs/getting-started) Serverless Framework and add your AWS keys
 - Clone this repo
 - Run _sls deploy_ to deploy on AWS and get the associated endpoint url.
-- For test purposes, the running endpoint is at: https://cz7pgk7yz9.execute-api.eu-west-1.amazonaws.com/prod/invoice
+- For test purposes, an active endpoint is at: https://cz7pgk7yz9.execute-api.eu-west-1.amazonaws.com/prod/invoice
 
 **Calling the endpoint + Testing**
 - This is a POST endpoint accepting form-data bearing a file input with a single key *data* which is a csv file.
