@@ -40,6 +40,7 @@ def handler(event, context):
     rows = [line.strip() for line in data[1:]] #drop the first row/head
 
     output = []
+    total_cost = 0
     for row in rows:
         if row: #Cater to possible blank row at the end of csv
             result = {}
@@ -63,9 +64,12 @@ def handler(event, context):
 
             total_hours = (end - start).total_seconds()/(60*60)
             result["Number of Hours"] = total_hours
-            result['Cost'] = round((total_hours * unit_price), 2)
+            cost = round((total_hours * unit_price), 2)
+            result['Cost'] = cost
+            total_cost += cost
             output.append(result)
 
-    body = {"message": "invoice details", "data":output}
+
+    body = {"message": "invoice_details", "data":output, "total_cost": total_cost}
     response = {"statusCode": 200, "body":json.dumps(body, default=str), "headers":cors_headers}
     return response   
