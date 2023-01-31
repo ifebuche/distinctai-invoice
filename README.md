@@ -1,6 +1,6 @@
 # distinctai-invoice
 
-#This is a serverless microservice RESTful app based on AWS Lambda and API Gateway, and mangaed + deployed with [Serverless Framework](https://www.serverless.com/). Standard HTTP status codes are in use.
+#This is a RESTful serverless microservice app built on AWS Lambda and API Gateway, and mangaed + deployed with [Serverless Framework](https://www.serverless.com/). Standard HTTP status codes are in use. This is meant to support agile development by allowing micro ownership of the service.
 
 **Deploy**
 - To deploy and run this app on AWS, [setup](https://www.serverless.com/framework/docs/getting-started) Serverless Framework and add your AWS keys
