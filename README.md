@@ -22,3 +22,9 @@
   - CSV data Lacking expected the total count of columns: 5
   - Missing data in unit price
   - Wrong data in date and time columns
+  
+*Sample Output with good input data*
+![image](https://user-images.githubusercontent.com/2832737/215881932-bff8b434-3d76-44fa-b9eb-d90d51ee849c.png)
+
+*Sample Call Output with bad input data*
+![image](https://user-images.githubusercontent.com/2832737/215880636-6b3a936a-4153-4f3f-8233-8a71f2e2b097.png)
