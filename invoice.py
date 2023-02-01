@@ -57,7 +57,7 @@ def handler(event, context):
                 start = dt.strptime(f"{row[3]} : {row[4]}", "%Y-%m-%d : %H:%M")
                 end = dt.strptime(f"{row[3]} : {row[5]}", "%Y-%m-%d : %H:%M")
             except ValueError as err:
-                body = {"message": f"Bad time format detected. Expected year and time format: 'YYYY-MM-DD' and 'HH:MM'"}
+                body = {"message": f"Bad time format detected. Expected year and time format: 'YYYY-MM-DD' and 'HH:MM' - {err}"}
                 response = {"statusCode": 400, "body":json.dumps(body, default=str), "headers": cors_headers}
                 return response
 
