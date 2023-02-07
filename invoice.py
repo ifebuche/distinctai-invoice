@@ -1,14 +1,13 @@
 import json
 import io
 import cgi
-from datetime import datetime as dt
-from utils import cors_headers
+
+from utils import cors_headers, process_data
 
 def handler(event, context):
     """
-    Process csv content.
+    Process csv content o fjob details and return an invoice.
 
-    - Validate contents of the csv to match expected input: unit price, year and time.
     - Dispatch headers with response to cater to preflight calls from browsers.
     """
 
@@ -38,38 +37,5 @@ def handler(event, context):
 
     #extract rows of the file and calculate invoice figures.
     rows = [line.strip() for line in data[1:]] #drop the first row/head
-
-    output = []
-    total_cost = 0
-    for row in rows:
-        if row: #Cater to possible blank row at the end of csv
-            result = {}
-            row = row.split(',')
-            result['Employee ID'] = row[0]
-            try:
-                unit_price = int(row[1])
-            except ValueError as err:
-                body = {"message": f"Invalid value in Unit Price - {err}"}
-                response = {"statusCode": 400, "body":json.dumps(body, default=str), "headers": cors_headers}
-                return response
-
-            result['Unit Price'] = unit_price
-            try:
-                start = dt.strptime(f"{row[3]} : {row[4]}", "%Y-%m-%d : %H:%M")
-                end = dt.strptime(f"{row[3]} : {row[5]}", "%Y-%m-%d : %H:%M")
-            except ValueError as err:
-                body = {"message": f"Bad time format detected. Expected year and time format: 'YYYY-MM-DD' and 'HH:MM' - {err}"}
-                response = {"statusCode": 400, "body":json.dumps(body, default=str), "headers": cors_headers}
-                return response
-
-            total_hours = (end - start).total_seconds()/(60*60)
-            result["Number of Hours"] = total_hours
-            cost = round((total_hours * unit_price), 2)
-            result['Cost'] = cost
-            total_cost += cost
-            output.append(result)
-
-
-    body = {"message": "invoice_details", "data":output, "total_cost": total_cost}
-    response = {"statusCode": 200, "body":json.dumps(body, default=str), "headers":cors_headers}
+    ok, response = process_data(rows)
     return response   
